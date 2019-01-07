@@ -46,10 +46,10 @@ class BotManController extends Controller
     {
         $tommy = app('botman'); 
                
-        $tommy->hears('Hi',function($tom){
+        $tommy->hears('Hi',function(Botman $tom){
             $tom->reply("Hi my name is Tommy. What's yours");
         });
-        $tommy->hears('My name is {name}',function($tom,$name){
+        $tommy->hears('My name is {name}',function(Botman $tom,$name){
             //save name in session Maybe?!
             $tom->reply("Hey "+$name+". Your wish is my command");
         });
@@ -66,7 +66,7 @@ class BotManController extends Controller
     public function facebook()
     {
         $tommy = app('botman');
-        $tommy->hears('Hi',function($tom){
+        $tommy->hears('Hi',function(Botman $tom){
             $tom->reply("Hi my name is Tommy. What's yours");
         });
         $tommy->hears('{name}',function($tom,$name){
