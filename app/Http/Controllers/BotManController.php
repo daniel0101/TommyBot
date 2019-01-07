@@ -44,9 +44,15 @@ class BotManController extends Controller
      **/
     public function telegram()
     {
-        $tommy = app('botman');
-        
+        $tommy = app('botman');        
         $tommy->listen();
+        $tommy->hears('Hi',function($tom){
+            $tom->reply("Hi my name is Tommy. What's yours");
+        });
+        $tommy->hears('{name}',function($tom,$name){
+            //save name in session Maybe?!
+            $tom->reply("Hey "+$name+". Your wish is my command");
+        });
     }
 
     /**
