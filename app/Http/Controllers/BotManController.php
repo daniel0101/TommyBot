@@ -44,7 +44,7 @@ class BotManController extends Controller
      **/
     public function telegram()
     {
-        $tommy = app('botman'); 
+        $tommy = resolve('botman'); 
                
         $tommy->hears('Hi',function(Botman $tom){
             $tom->reply("Hi my name is Tommy. What's yours");
@@ -65,7 +65,7 @@ class BotManController extends Controller
      **/
     public function facebook()
     {
-        $tommy = app('botman');
+        $tommy = resolve('botman');
         $tommy->hears('Hi',function(Botman $tom){
             $tom->reply("Hi my name is Tommy. What's yours");
         });
