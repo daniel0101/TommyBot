@@ -19,4 +19,4 @@ Route::match(['get', 'post'], '/botman', 'BotManController@handle');
 Route::get('/botman/tinker', 'BotManController@tinker');
 
 Route::match(['get','post'],'/facebook', 'BotManController@facebook');
-Route::get(['get','post'],'/telegram', 'BotManController@telegram');
+Route::match(['get','post'],'/telegram', 'BotManController@telegram');
