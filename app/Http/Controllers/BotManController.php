@@ -48,19 +48,26 @@ class BotManController extends Controller
     public function telegram()
     {
         // $tommy = resolve('botman'); 
-        DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
-        $this->config = ['telegram' => [
-                    'token' => '744176429:AAEsmV691fVmbm0E-qB_KqxorWF_I_uF2b8',
-                ]
-            ];
-        $tommy = BotManFactory::create($this->config);
+        $tommy = $this->loadConfig('telegram');
                
         $tommy->hears('Hi',function(Botman $tom){
-            $tom->reply("Hi my name is Tommy. What's yours");
+            $tom->reply("Hi my name is Tommy. How can be of help to you today?");
         });
-        $tommy->hears('My name is {name}',function(Botman $tom,$name){
+        $tommy->hears('My name is {name}',function(Botman $tom, $name){
             //save name in session Maybe?!
             $tom->reply("Hey "+$name+". Your wish is my command");
+        });
+        $tommy->hears('(^.*offers.*$)', function(){
+            $attachment = new Image('https://botman.io/img/logo.png');
+            // Build message object
+            $message = OutgoingMessage::create('Checkout this offers')
+                        ->withAttachment($attachment);
+
+            // Reply message object
+            $bot->reply($message);
+        });
+        $tommy->hears('(^Complaint-){complaint}',function(Botman $bot,$complaint){
+            $tom->reply('I just recorded your complaint, you would be contacted shortly');
         });
 
         $tommy->listen();
@@ -121,5 +128,28 @@ class BotManController extends Controller
 
     public function dialogFlow(){
 
+    }
+    public function loadConfig($driver){
+        switch ($driver) {
+            case 'telegram':
+                    DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
+                    $this->config = ['telegram' => [
+                            'token' => '744176429:AAEsmV691fVmbm0E-qB_KqxorWF_I_uF2b8',
+                        ]
+                    ];
+                    return BotManFactory::create($this->config);
+                break; 
+            case 'facebook':
+                DriverManager::loadDriver(\BotMan\Drivers\Telegram\FacebookDriver::class);
+                $this->config = ['facebook' => [
+                        'token' => '',
+                    ]
+                ];
+                return BotManFactory::create($this->config);
+            break;            
+            default:
+                # code...
+                break;
+        }
     }
 }
