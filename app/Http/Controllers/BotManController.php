@@ -8,6 +8,7 @@ use App\Conversations\ExampleConversation;
 
 class BotManController extends Controller
 {
+    protected $config;
     /**
      * Place your BotMan logic here.
      */
@@ -44,7 +45,13 @@ class BotManController extends Controller
      **/
     public function telegram()
     {
-        $tommy = resolve('botman'); 
+        // $tommy = resolve('botman'); 
+        DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
+        $this->config = ['telegram' => [
+                    'token' => '744176429:AAEsmV691fVmbm0E-qB_KqxorWF_I_uF2b8',
+                ]
+            ];
+        $tommy = BotManFactory::create($this->config);
                
         $tommy->hears('Hi',function(Botman $tom){
             $tom->reply("Hi my name is Tommy. What's yours");
@@ -53,6 +60,7 @@ class BotManController extends Controller
             //save name in session Maybe?!
             $tom->reply("Hey "+$name+". Your wish is my command");
         });
+
         $tommy->listen();
     }
 
