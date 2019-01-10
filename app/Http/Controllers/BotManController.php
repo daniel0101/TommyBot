@@ -6,6 +6,10 @@ use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use Illuminate\Http\Request;
+use BotMan\BotMan\Messages\Attachments\Image;
+use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
+use BotMan\Drivers\Facebook\Extensions\ElementButton;
 use App\Conversations\ExampleConversation;
 
 class BotManController extends Controller
@@ -53,21 +57,27 @@ class BotManController extends Controller
         $tommy->hears('Hi',function(Botman $tom){
             $tom->reply("Hi my name is Tommy. How can be of help to you today?");
         });
+
         $tommy->hears('My name is {name}',function(Botman $tom, $name){
             //save name in session Maybe?!
             $tom->reply("Hey "+$name+". Your wish is my command");
         });
-        $tommy->hears('(^.*offers.*$)', function(){
+        
+        $tommy->hears('(^.*offers.*$)', function(Botman $tom){
             $attachment = new Image('https://botman.io/img/logo.png');
             // Build message object
             $message = OutgoingMessage::create('Checkout this offers')
                         ->withAttachment($attachment);
-
             // Reply message object
-            $bot->reply($message);
+            $tom->reply($message);
         });
         $tommy->hears('(^Complaint-){complaint}',function(Botman $bot,$complaint){
             $tom->reply('I just recorded your complaint, you would be contacted shortly');
+        });
+
+        $tommy->fallback(function(Botman $tom) {
+            $tom->typeAndAwaits(3);
+            $tom->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
         });
 
         $tommy->listen();
