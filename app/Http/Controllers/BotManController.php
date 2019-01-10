@@ -55,15 +55,18 @@ class BotManController extends Controller
         $tommy = $this->loadConfig('telegram');
                
         $tommy->hears('Hi',function(Botman $tom){
+            $tom->typesAndWaits(3);
             $tom->reply("Hi my name is Tommy. How can be of help to you today?");
         });
 
         $tommy->hears('My name is {name}',function(Botman $tom, $name){
+            $tom->typesAndWaits(3);
             //save name in session Maybe?!
-            $tom->reply("Hey "+$name+". Your wish is my command");
+            $tom->reply("Hey ".$name.". \n Please Respond with 1. for Complaints \n 2. For our  latest offers. \n 3. Make we yarn wella");
         });
         
         $tommy->hears('(^.*offers.*$)', function(Botman $tom){
+            $tom->typesAndWaits(3);
             $attachment = new Image('https://botman.io/img/logo.png');
             // Build message object
             $message = OutgoingMessage::create('Checkout this offers')
@@ -71,12 +74,13 @@ class BotManController extends Controller
             // Reply message object
             $tom->reply($message);
         });
-        $tommy->hears('(^Complaint-){complaint}',function(Botman $bot,$complaint){
+
+        $tommy->hears('(^Complaint-)',function(Botman $bot){
             $tom->reply('I just recorded your complaint, you would be contacted shortly');
         });
 
         $tommy->fallback(function(Botman $tom) {
-            $tom->typeAndAwaits(3);
+            $tom->typesAndWaits(3);
             $tom->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
         });
 
