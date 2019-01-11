@@ -6,6 +6,7 @@ use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use Illuminate\Http\Request;
+use BotMan\BotMan\Middleware\ApiAi;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
@@ -54,26 +55,55 @@ class BotManController extends Controller
         // $tommy = resolve('botman'); 
         $tommy = $this->loadConfig('telegram');
                
-        $tommy->hears('Hi',function(Botman $tom){
-            $tom->typesAndWaits(3);
-            $tom->reply("Hi my name is Tommy. How can be of help to you today?");
-        });
+        // $tommy->hears('(^Hi|Hello)',function(Botman $tom){
+        //     $tom->typesAndWaits(3);
+        //     $tom->reply("Hi my name is Tommy. How can be of help to you today?");
+        // });
+        $tommy->hears('(^Hi|Hello)','App\Messages\TelegramMessages@firstMessage');
+        $tommy->hears('My name is {name}','App\Messages\TelegramMessages@nameMessage');
+        $tommy->hears('((?i)\\offers\\b)','App\Messages\TelegramMessages@offers');
+        $tommy->hears('((?i)\\offer\\b)','App\Messages\TelegramMessages@offers');
+        $tommy->hears('(^.*offers.*$)','App\Messages\TelegramMessages@offers');
+        
+        // $tommy->hears('My name is {name}',function(Botman $tom, $name){
+        //     $tom->typesAndWaits(3);
+        //     //save name in session Maybe?!
+        //     $tom->reply("Hey ".$name.". \n Please Respond with 1. for Complaints \n 2. For our  latest offers. \n 3. Make we yarn wella");
+        // });
+        $tommy->hears('(^1)','App\Messages\TelegramMessages@complaints');
+        $tommy->hears('(^2)','App\Messages\TelegramMessages@offers');
 
-        $tommy->hears('My name is {name}',function(Botman $tom, $name){
+        $tommy->hears('(^3)',function(Botman $tom){
             $tom->typesAndWaits(3);
-            //save name in session Maybe?!
-            $tom->reply("Hey ".$name.". \n Please Respond with 1. for Complaints \n 2. For our  latest offers. \n 3. Make we yarn wella");
+            //make sure you move this to a class
+            $dialogflow = ApiAi::create('your-api-ai-token')->listenForAction();
+
+            // Apply global "received" middleware
+            $tommy->middleware->received($dialogflow);
+
+            // Apply matching middleware per hears command
+            $tommy->hears('my_api_action', function (BotMan $tom) {
+                // The incoming message matched the "my_api_action" on Dialogflow
+                // Retrieve Dialogflow information:
+                $extras = $tom->getMessage()->getExtras();
+                $apiReply = $extras['apiReply'];
+                $apiAction = $extras['apiAction'];
+                $apiIntent = $extras['apiIntent'];
+                
+                $tom->reply("this is my reply");
+            })->middleware($dialogflow);
+            $tom->reply("Correct! Let's go there");
         });
         
-        $tommy->hears('(^.*offers.*$)', function(Botman $tom){
-            $tom->typesAndWaits(3);
-            $attachment = new Image('https://botman.io/img/logo.png');
-            // Build message object
-            $message = OutgoingMessage::create('Checkout this offers')
-                        ->withAttachment($attachment);
-            // Reply message object
-            $tom->reply($message);
-        });
+        // $tommy->hears('(^.*offers.*$)', function(Botman $tom){
+        //     $tom->typesAndWaits(3);
+        //     $attachment = new Image('https://botman.io/img/logo.png');
+        //     // Build message object
+        //     $message = OutgoingMessage::create('Checkout this offers')
+        //                 ->withAttachment($attachment);
+        //     // Reply message object
+        //     $tom->reply($message);
+        // });
 
         $tommy->hears('(^Complaint-)',function(Botman $bot){
             $tom->reply('I just recorded your complaint, you would be contacted shortly');
@@ -81,7 +111,7 @@ class BotManController extends Controller
 
         $tommy->fallback(function(Botman $tom) {
             $tom->typesAndWaits(3);
-            $tom->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
+            $tom->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: \n Respond (type) with **1** for Complaints \n **2** For our  latest offers. \n **3** Make we yarn wella');
         });
 
         $tommy->listen();
