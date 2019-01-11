@@ -16,7 +16,7 @@ class ComplaintConversation extends Conversation
 
     public function askFirstName()
     {
-        $this->ask('For Record Purposes...What is your firstname?', function(Answer $answer) {
+        $this->ask('For Record Purposes...What is your firstname?', function(Answer $answer, Botman $bot) {
             // Save result
             $this->firstname = $answer->getText();
             $bot->userStorage()->save([
