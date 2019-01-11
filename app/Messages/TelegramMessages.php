@@ -17,7 +17,7 @@ class TelegramMessages
         $tommy->typesAndWaits(3);
         $tommy->reply("Hi my name is Tommy. How can be of help to you today? \n Please Respond with **1** for Complaints \n **2** For our  latest offers. \n **3** Make we yarn wella");
     }
-    public function nameMessage(Botman $tommy){
+    public function nameMessage(Botman $tommy,$name){
         $tommy->typesAndWaits(3);
         $tommy->reply("Hey ".$name."\n Please Respond with **1** for Complaints \n **2** For our  latest offers. \n **3** Make we yarn wella");
     }
