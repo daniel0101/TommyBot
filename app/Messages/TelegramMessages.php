@@ -15,7 +15,7 @@ class TelegramMessages
 
     public function firstMessage(Botman $tommy){
         $tommy->typesAndWaits(3);
-        $tommy->reply("Hi my name is Tommy. How can be of help to you today? \nPlease Respond with 1. for Complaints \n 2. For our  latest offers. \n 3. Make we yarn wella");
+        $tommy->reply("Hi my name is Tommy. How can be of help to you today? \nPlease Respond with \n 1. for Complaints \n 2. For our  latest offers. \n 3. Make we yarn wella");
     }
     public function nameMessage(Botman $tommy,$name){
         $tommy->typesAndWaits(3);
@@ -23,7 +23,7 @@ class TelegramMessages
     }
 
     public function complaints(Botman $tommy){
-        $tommy->startConversation(new ComplaintConversation);
+        $tommy->startConversation(new ExampleConversation());
     }
 
     public function Offers(Botman $tommy){
