@@ -8,6 +8,7 @@ use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use App\Conversations\ComplaintConversation;
+use App\Conversations\ExampleConversation;
 use BotMan\BotMan\Middleware\ApiAi;
 
 class TelegramMessages
