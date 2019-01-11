@@ -4,6 +4,7 @@ namespace App\Conversations;
 
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\BotMan;
+use BotMan\BotMan\Messages\Incoming\Answer;
 use App\Jobs\SendEmailJob;
 use App\Complaint;
 use Carbon;

@@ -15,11 +15,11 @@ class TelegramMessages
 
     public function firstMessage(Botman $tommy){
         $tommy->typesAndWaits(3);
-        $tommy->reply("Hi my name is Tommy. How can be of help to you today? \n Please Respond with **1** for Complaints \n **2** For our  latest offers. \n **3** Make we yarn wella");
+        $tommy->reply("Hi my name is Tommy. How can be of help to you today? \nPlease Respond with 1. for Complaints \n 2. For our  latest offers. \n 3. Make we yarn wella");
     }
     public function nameMessage(Botman $tommy,$name){
         $tommy->typesAndWaits(3);
-        $tommy->reply("Hey ".$name."\n Please Respond with **1** for Complaints \n **2** For our  latest offers. \n **3** Make we yarn wella");
+        $tommy->reply("Hey ".$name."\nPlease Respond with 1. for Complaints \n 2 For our  latest offers. \n 3. Make we yarn wella");
     }
 
     public function complaints(Botman $tommy){
@@ -29,10 +29,13 @@ class TelegramMessages
     public function Offers(Botman $tommy){
         $tommy->typesAndWaits(3);
         //get latest offers from the admin backend
-        $offers = $this->getOffers();
+        // $offers = $this->getOffers();
+        // if($offers && $offers->count() >0){
+
+        // }
         $attachment = new Image('https://botman.io/img/logo.png');
         // Build message object
-        $message = OutgoingMessage::create('Checkout this offers - add url here')
+        $message = OutgoingMessage::create('Monday Special- https://www.234bet.com')
                         ->withAttachment($attachment);
         // Reply message object
         $tommy->reply($message);
