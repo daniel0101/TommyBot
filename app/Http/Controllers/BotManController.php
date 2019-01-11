@@ -61,9 +61,9 @@ class BotManController extends Controller
         // });
         $tommy->hears('(^Hi|Hello)','App\Messages\TelegramMessages@firstMessage');
         $tommy->hears('My name is {name}','App\Messages\TelegramMessages@nameMessage');
-        $tommy->hears('((?i)\\offers\\b)','App\Messages\TelegramMessages@offers');
-        $tommy->hears('((?i)\\offer\\b)','App\Messages\TelegramMessages@offers');
-        $tommy->hears('(^.*offers.*$)','App\Messages\TelegramMessages@offers');
+        $tommy->hears('((?i)\\offers\\b)','App\Messages\TelegramMessages@Offers');
+        $tommy->hears('((?i)\\offer\\b)','App\Messages\TelegramMessages@Offers');
+        $tommy->hears('(^.*offers.*$)','App\Messages\TelegramMessages@Offers');
         
         // $tommy->hears('My name is {name}',function(Botman $tom, $name){
         //     $tom->typesAndWaits(3);
