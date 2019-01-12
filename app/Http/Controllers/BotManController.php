@@ -111,7 +111,7 @@ class BotManController extends Controller
 
         $tommy->fallback(function(Botman $tom) {
             $tom->typesAndWaits(3);
-            $tom->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: \n Respond (type) with **1** for Complaints \n **2** For our  latest offers. \n **3** Make we yarn wella');
+            $tom->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: \n 1 for Complaints \n 2 For our  latest offers. \n 3 Make we yarn wella');
         });
 
         $tommy->listen();

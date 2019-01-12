@@ -6,6 +6,8 @@ use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\BotMan\Messages\Attachments\Image;
+use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use App\Conversations\ComplaintConversation;
 use App\Conversations\ExampleConversation;
@@ -16,11 +18,27 @@ class TelegramMessages
 
     public function firstMessage(Botman $tommy){
         $tommy->typesAndWaits(3);
-        $tommy->reply("Hi my name is Tommy. How can be of help to you today? \nPlease Respond with \n 1. for Complaints \n 2. For our  latest offers. \n 3. Make we yarn wella");
+        $question = Question::create("Hey I'm Tommy. How can help you today? Please select an option")
+            ->fallback('Unable to ask question')
+            ->callbackId('ask_reason')
+            ->addButtons([
+                Button::create('I want to Complain about your Service')->value('1'),
+                Button::create('Our Latest Offers')->value('2'),
+                Button::create('Make we yarn wella')->value('3'),
+            ]);
+        $tommy->reply($question);
     }
     public function nameMessage(Botman $tommy,$name){
         $tommy->typesAndWaits(3);
-        $tommy->reply("Hey ".$name."\nPlease Respond with 1. for Complaints \n 2 For our  latest offers. \n 3. Make we yarn wella");
+        $question = Question::create("Hey ".$name.". How can help you today? Please select an option")
+            ->fallback('Unable to ask question')
+            ->callbackId('ask_reason')
+            ->addButtons([
+                Button::create('I want to Complain about your Service')->value('1'),
+                Button::create('Our Latest Offers')->value('2'),
+                Button::create('Make we yarn wella')->value('3'),
+            ]);
+        $tommy->reply($question);
     }
 
     public function complaints(Botman $tommy){
