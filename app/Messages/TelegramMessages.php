@@ -42,7 +42,7 @@ class TelegramMessages
     }
 
     public function complaints(Botman $tommy){
-        $tommy->startConversation(new ExampleConversation());
+        $tommy->startConversation(new ComplaintConversation());
     }
 
     public function Offers(Botman $tommy){
