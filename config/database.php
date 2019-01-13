@@ -69,6 +69,7 @@ return [
         //     'schema' => 'public',
         //     'sslmode' => 'prefer',
         // ],
+        //HEROKU config
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => $DATABASE_URL["host"],
