@@ -12,6 +12,7 @@ use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
 use BotMan\Drivers\Facebook\Extensions\ElementButton;
 use App\Conversations\ExampleConversation;
+use App\Conversations\ComplaintConversation;
 
 class BotManController extends Controller
 {
@@ -40,7 +41,7 @@ class BotManController extends Controller
      */
     public function startConversation(BotMan $bot)
     {
-        $bot->startConversation(new ExampleConversation());
+        $bot->startConversation(new ComplaintConversation());
     }
 
     /**
@@ -73,7 +74,7 @@ class BotManController extends Controller
         $tommy->hears('(^1)','App\Messages\TelegramMessages@complaints');
         $tommy->hears('(^2)','App\Messages\TelegramMessages@offers');
 
-        $tommy->hears('(^3)',function(Botman $tom){
+        $tommy->hears('(^3)',function(BotMan $tom){
             $tom->typesAndWaits(3);
             //make sure you move this to a class
             $dialogflow = ApiAi::create('your-api-ai-token')->listenForAction();

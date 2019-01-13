@@ -9,7 +9,7 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use App\Jobs\SendEmailJob;
 use App\Complaint;
-use Carbon;
+use Carbon\Carbon;
 
 class ComplaintConversation extends Conversation
 {
@@ -18,12 +18,9 @@ class ComplaintConversation extends Conversation
 
     public function askFirstName()
     {
-        $this->ask('For Record Purposes...What is your firstname?', function(Answer $answer, Botman $bot) {
+        return $this->ask('For Record Purposes...What is your firstname?', function(Answer $answer) {
             // Save result
             $this->firstname = $answer->getText();
-            $bot->userStorage()->save([
-                'firstname'=>$this->firstname
-            ]);
             $this->say('Nice to meet you '.$this->firstname);
             $this->askEmail();
         });
@@ -35,14 +32,10 @@ class ComplaintConversation extends Conversation
      * @return void
      */
     public function askEmail(){               
-        $this->ask('What is your Email?', function(Answer $answer,Botman $bot) {
-            // Save result
+        $this->ask('What is your Email?', function(Answer $answer) {
+            //assign email to global scoped variable
             $this->email = $answer->getText();
-            $bot->userStorage()->save([
-                'email'=>$this->email
-            ]);
-            //save the email here
-            $this->say('Thanks, we would send a response to your complaint via this email address you provided');
+            $this->say('Thanks, we would send a response to your complaint via this email address you provided 📧');
             $this->askComplaint();
         });
        
@@ -54,25 +47,23 @@ class ComplaintConversation extends Conversation
      * @return void
      */
     public function askComplaint(){
-        $this->ask("Please what's your complaint", function(Answer $answer,Botman $bot) {
-            $bot->typesAndWaits(4);
-            $email = $bot->userStorage()->find('email');
+        $this->ask("Please what's your complaint", function(Answer $answer) {
             //persist complaint to DB
             Complaint::create([
-                'firstname'=>$bot->userStorage()->find('firstname'),
-                'email'=>$email,
+                'firstname'=>$this->firstname,
+                'email'=>$this->email,
                 'message'=>$answer->getText(),
             ]);
             //send email to queue  --add few seconds delay          
-            $emailJob = (new SendEmailJob($email))->delay(Carbon::now()->addSeconds(3));
+            $emailJob = (new SendEmailJob($this->email))->delay(Carbon::now()->addSeconds(3));
             dispatch($emailJob);
-            $this->say('Your Complaint has been recorded...we would respond to it shortly');
+            $this->say('Your Complaint has been recorded...we would respond to it shortly ✅');
             $this->concludeMessage();
         });
     }
 
     public function concludeMessage(){
-       $this->say('Thank you for reaching out to us.');
+       $this->say("Thank you for reaching out to us. ☺");
     }
 
     /**
