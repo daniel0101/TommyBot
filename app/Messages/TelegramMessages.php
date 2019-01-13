@@ -22,9 +22,9 @@ class TelegramMessages
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
             ->addButtons([
-                Button::create('I want to Complain about your Service')->value('1'),
                 Button::create('Our Latest Offers')->value('2'),
                 Button::create('Make we yarn wella')->value('3'),
+                Button::create('Lodge Complaint')->value('1'),
             ]);
         $tommy->reply($question);
     }
@@ -34,9 +34,9 @@ class TelegramMessages
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
             ->addButtons([
-                Button::create('I want to Complain about your Service')->value('1'),
                 Button::create('Our Latest Offers')->value('2'),
                 Button::create('Make we yarn wella')->value('3'),
+                Button::create('Lodge Complaint')->value('1'),
             ]);
         $tommy->reply($question);
     }
