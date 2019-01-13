@@ -16,7 +16,7 @@ class SendMailable extends Mailable
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct()
     {
         //
     }
@@ -28,6 +28,6 @@ class SendMailable extends Mailable
      */
     public function build()
     {
-        return $this->view('complaint');
+        return $this->view('email.complaint');
     }
 }
