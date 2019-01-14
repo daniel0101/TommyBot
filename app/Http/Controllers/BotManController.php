@@ -14,6 +14,7 @@ use BotMan\Drivers\Facebook\Extensions\ElementButton;
 use App\Conversations\ExampleConversation;
 use App\Conversations\ComplaintConversation;
 use BotMan\BotMan\Cache\RedisCache;
+use BotMan\BotMan\Cache\LaravelCache;
 
 class BotManController extends Controller
 {
@@ -183,7 +184,7 @@ class BotManController extends Controller
                             'token' => '744176429:AAEsmV691fVmbm0E-qB_KqxorWF_I_uF2b8',
                         ]
                     ];
-                    return BotManFactory::create($this->config,new RedisCache(env('REDIS_HOST'), env('REDIS_PORT')));
+                    return BotManFactory::create($this->config,new LaravelCache(env('REDIS_HOST'), env('REDIS_PORT')));
                 break; 
             case 'facebook':
                 DriverManager::loadDriver(\BotMan\Drivers\Telegram\FacebookDriver::class);
