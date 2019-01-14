@@ -183,7 +183,7 @@ class BotManController extends Controller
                             'token' => '744176429:AAEsmV691fVmbm0E-qB_KqxorWF_I_uF2b8',
                         ]
                     ];
-                    return BotManFactory::create($this->config,new RedisCache('127.0.0.1', 6379));
+                    return BotManFactory::create($this->config,new RedisCache(env('REDIS_HOST'), env('REDIS_PORT')));
                 break; 
             case 'facebook':
                 DriverManager::loadDriver(\BotMan\Drivers\Telegram\FacebookDriver::class);
