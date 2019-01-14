@@ -13,6 +13,7 @@ use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
 use BotMan\Drivers\Facebook\Extensions\ElementButton;
 use App\Conversations\ExampleConversation;
 use App\Conversations\ComplaintConversation;
+use BotMan\BotMan\Cache\RedisCache;
 
 class BotManController extends Controller
 {
@@ -174,7 +175,7 @@ class BotManController extends Controller
     public function dialogFlow(){
 
     }
-    public function loadConfig($driver){
+    public function loadConfig($driver){        
         switch ($driver) {
             case 'telegram':
                     DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
@@ -182,7 +183,7 @@ class BotManController extends Controller
                             'token' => '744176429:AAEsmV691fVmbm0E-qB_KqxorWF_I_uF2b8',
                         ]
                     ];
-                    return BotManFactory::create($this->config);
+                    return BotManFactory::create($this->config,new RedisCache('127.0.0.1', 6379));
                 break; 
             case 'facebook':
                 DriverManager::loadDriver(\BotMan\Drivers\Telegram\FacebookDriver::class);
@@ -190,7 +191,7 @@ class BotManController extends Controller
                         'token' => '',
                     ]
                 ];
-                return BotManFactory::create($this->config);
+                return BotManFactory::create($this->config,new RedisCache('127.0.0.1', 6379));
             break;            
             default:
                 # code...
