@@ -12,6 +12,8 @@ use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use App\Conversations\ComplaintConversation;
 use App\Conversations\ExampleConversation;
 use BotMan\BotMan\Middleware\ApiAi;
+use Log;
+use App\Offer;
 
 class TelegramMessages
 {
@@ -48,16 +50,26 @@ class TelegramMessages
     public function Offers(Botman $tommy){
         $tommy->typesAndWaits(3);
         //get latest offers from the admin backend
-        // $offers = $this->getOffers();
-        // if($offers && $offers->count() >0){
-
-        // }
-        $attachment = new Image('https://botman.io/img/logo.png');
-        // Build message object
-        $message = OutgoingMessage::create('Monday Special- https://www.234bet.com')
-                        ->withAttachment($attachment);
-        // Reply message object
-        $tommy->reply($message);
+        $offers = $this->getOffers();
+        if($offers && $offers->count() >0){
+            $offers->each(function($offer) use ($tommy) {
+                $attachment = new Image($offer->image);
+                $message = OutgoingMessage::create(''.$offer->name.' - '.$offer->url)
+                                            ->withAttachment($attachment);
+                $tommy->reply($message);
+            });
+        }else{
+            $tommy->reply('Sorry, there are no juicy offers at this time');
+            $message = OutgoingMessage::create('You can also interact with us more')->addButtons([
+                Button::create('Lodge Complaint')->value(1)
+            ]);
+        }
+        // $attachment = new Image('https://botman.io/img/logo.png');
+        // // Build message object
+        // $message = OutgoingMessage::create('Monday Special- https://www.234bet.com')
+        //                 ->withAttachment($attachment);
+        // // Reply message object
+        // $tommy->reply($message);
     }
 
     public function yarn(Botman $tommy){
@@ -79,8 +91,9 @@ class TelegramMessages
     }
 
     public function getOffers(){
-        //get latest offers saved on the DB
+        //get latest offers saved on the DB --not older than today
+        $offers = Offer::where('offer_date','>',date('Y-m-d'))->get();        
         return $offers;
     }
-    
+
 }
