@@ -141,11 +141,11 @@ class BotManController extends Controller
         $tommy->hears('Thank you tommy',function($tom){
             $bot->reply(ButtonTemplate::create('Do you want to know more about 234BET?')               
                 ->addButton(ElementButton::create('Show Me the Money!')
-                    ->url('http://botman.io/')
+                    ->url('http://www.234bet.com/')
                 )
             );
         });
-        $tommy->hears('Goodbye',function($tom){
+        $tommy->hears('(Goodbye)',function($tom){
             $bot->reply(ButtonTemplate::create('Rate our service')
                     ->addButton(ElementButton::create('Excellent')
                         ->type('postback')
@@ -175,7 +175,8 @@ class BotManController extends Controller
 
     public function dialogFlow(){
 
-    }
+    }   
+
     public function loadConfig($driver){        
         switch ($driver) {
             case 'telegram':
@@ -184,7 +185,7 @@ class BotManController extends Controller
                             'token' => '744176429:AAEsmV691fVmbm0E-qB_KqxorWF_I_uF2b8',
                         ]
                     ];
-                    return BotManFactory::create($this->config,new LaravelCache(env('REDIS_HOST'), env('REDIS_PORT')));
+                    return BotManFactory::create($this->config,new LaravelCache);
                 break; 
             case 'facebook':
                 DriverManager::loadDriver(\BotMan\Drivers\Telegram\FacebookDriver::class);
