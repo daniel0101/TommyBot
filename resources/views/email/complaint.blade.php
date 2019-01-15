@@ -8,7 +8,7 @@
         <td></td>
         <td bgcolor="#FFFFFF ">
           <div style="padding: 15px; max-width: 600px;margin: 0 auto;display: block; border-radius: 0px;padding: 0px; border: 1px solid lightseagreen;">
-            <table style="width: 100%;background: #00b6e2 ;">
+            <table style="width: 100%;background: #db0d19;">
               <tr>
                 <td></td>
                 <td>
@@ -30,18 +30,18 @@
                 <td style="padding:10px;font-size:14px; width:100%;">
                     <p>Hi User,</p>
 
-                    <p><br /> BET234</p>
+                    <p><br /> 234Bet</p>
                     <br>
                     
-                    <p>Thanks for choosing PartnerZone,</p>
-                    <p><strong>PartnerZone Team.</strong></p>
+                    <p>Thanks for choosing 234Bet,</p>
+                    <p><strong>234Bet Team.</strong></p>
                   <!-- /Callout Panel -->
                   <!-- FOOTER -->
                  </td>
               </tr>
 			  <tr>
 			  <td>
-				 <div align="center" style="font-size:12px; margin-top:20px; padding:5px; width:100%; background:#00b6e2;">
+				 <div align="center" style="font-size:12px; margin-top:20px; padding:5px; width:100%; background:#db0d19">
                  © {{ date('Y') }} <a href="{{ url('/')}}" target="_blank" style="color:#FFF; text-decoration: none;">www.234bet.com</a>
                   </div>
                 </td>
