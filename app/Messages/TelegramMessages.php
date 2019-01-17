@@ -75,10 +75,22 @@ class TelegramMessages
     public function yarn(Botman $tommy){
         //uses dialog flow
         $dialogFlow = $this->initDialogFlow();
+        // Apply global "received" middleware
+        $tommy->middleware->received($dialogflow); 
+        // Apply matching middleware per hears command
+        $tommy->hears('smalltalk(.*)', function (BotMan $tom) {
+            // The incoming message matched the "my_api_action" on Dialogflow
+            // Retrieve Dialogflow information:
+            $extras = $tom->getMessage()->getExtras();
+            $apiReply = $extras['apiReply'];
+            $apiAction = $extras['apiAction'];
+            $apiIntent = $extras['apiIntent'];            
+            $tom->reply($apiReply);
+        })->middleware($dialogflow);
     }
 
     public function initDialogFlow(){
-        return ApiAi::create(env('DIALOGFLOW_API_TOKEN'))->listenForAction();
+        return ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
     }
     
     public function initBotman(){

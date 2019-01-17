@@ -89,7 +89,15 @@ class BotManController extends Controller
          // Apply matching middleware per hears command
          $dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
          $tommy->middleware->received($dialogflow); 
-         $tommy->hears('smalltalk(.*)', 'App\Messages\TelegramMessages@offers')->middleware($dialogflow);
+         $tommy->hears('smalltalk(.*)', function (BotMan $tom) {
+            // The incoming message matched the "my_api_action" on Dialogflow
+            // Retrieve Dialogflow information:
+            $extras = $tom->getMessage()->getExtras();
+            $apiReply = $extras['apiReply'];
+            $apiAction = $extras['apiAction'];
+            $apiIntent = $extras['apiIntent'];            
+            $tom->reply($apiReply);
+        })->middleware($dialogflow);
         
         // $tommy->hears('(^.*offers.*$)', function(Botman $tom){
         //     $tom->typesAndWaits(3);
