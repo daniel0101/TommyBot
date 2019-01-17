@@ -52,6 +52,7 @@ class ComplaintConversation extends Conversation
                 'firstname'=>$this->firstname,
                 'email'=>$this->email,
                 'message'=>$answer->getText(),
+                'reply_status'=>false
             ];
             //persist complaint to DB
             Complaint::create($data);
