@@ -18,6 +18,7 @@ class CreateComplaintsTable extends Migration
             $table->string('firstname');
             $table->string('email')->unique();
             $table->text('message');
+            $table->boolean('reply_status');
             $table->timestamps();
         });
     }
