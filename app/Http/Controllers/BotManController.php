@@ -79,13 +79,13 @@ class BotManController extends Controller
         $tommy->hears('(^3)',function(BotMan $tom){
             $tom->typesAndWaits(3);
             //make sure you move this to a class
-            $dialogflow = ApiAi::create('your-api-ai-token')->listenForAction();
+            $dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
 
             // Apply global "received" middleware
             $tommy->middleware->received($dialogflow);
 
             // Apply matching middleware per hears command
-            $tommy->hears('my_api_action', function (BotMan $tom) {
+            $tommy->hears('smalltalk(.*)', function (BotMan $tom) {
                 // The incoming message matched the "my_api_action" on Dialogflow
                 // Retrieve Dialogflow information:
                 $extras = $tom->getMessage()->getExtras();
@@ -93,7 +93,7 @@ class BotManController extends Controller
                 $apiAction = $extras['apiAction'];
                 $apiIntent = $extras['apiIntent'];
                 
-                $tom->reply("this is my reply");
+                $tom->reply($apiReply);
             })->middleware($dialogflow);
             $tom->reply("Correct! Let's go there");
         });
