@@ -13,16 +13,16 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="{{ asset('/css/nucleo-icons.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="{{ asset('/css/black-dashboard.css?v=1.0.0') }}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/demo/demo.css" rel="stylesheet" />
     <!--   Core JS Files   -->
-    <script src="/js/core/jquery.min.js"></script>
-    <script src="/js/core/popper.min.js"></script>
-    <script src="/js/core/bootstrap.min.js"></script>
-    <script src="/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="{{ asset('/js/core/jquery.min.js') }}"></script>
+    <script src="{{ asset('/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
   <style>
       .sidebar .sidebar-wrapper, .off-canvas-sidebar .sidebar-wrapper{
           overflow: hidden;
@@ -218,7 +218,7 @@
         <div class="container-fluid">
           <ul class="nav">
             <li class="nav-item">
-              <a href="http://www.234bet.com" class="nav-link">
+              <a href="https://www.234bet.com" class="nav-link">
                 Home
               </a>
             </li>
@@ -290,13 +290,13 @@
   <!-- Place this tag in your head or just before your close body tag. -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="/js/plugins/chartjs.min.js"></script>
+  <script src="{{ asset('/js/plugins/chartjs.min.js') }}"></script>
   <!--  Notifications Plugin    -->
-  <script src="/js/plugins/bootstrap-notify.js"></script>
+  <script src="{{ asset('/js/plugins/bootstrap-notify.js') }}"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script src="{{ asset('/js/black-dashboard.min.js?v=1.0.0') }}"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/demo/demo.js"></script>
+  <script src="{{ asset('/demo/demo.js') }}"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
