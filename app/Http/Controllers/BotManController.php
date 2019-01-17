@@ -82,22 +82,28 @@ class BotManController extends Controller
             $dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
 
             // Apply global "received" middleware
-            $tommy->middleware->received($dialogflow);           
+            $tommy->middleware->received($dialogflow);
+            
+            //put cache flag for dialog flow
+            Cache::put('dialogflow_flag', true, now()->addMinute(20));
             $tommy->reply("Correct! Let's go there");
         });
 
-         // Apply matching middleware per hears command
-         $dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
-         $tommy->middleware->received($dialogflow); 
-         $tommy->hears('smalltalk(.*)', function (BotMan $tom) {
-            // The incoming message matched the "my_api_action" on Dialogflow
-            // Retrieve Dialogflow information:
-            $extras = $tom->getMessage()->getExtras();
-            $apiReply = $extras['apiReply'];
-            $apiAction = $extras['apiAction'];
-            $apiIntent = $extras['apiIntent'];            
-            $tom->reply($apiReply);
-        })->middleware($dialogflow);
+        //check if chat cache is set
+        if(Cache::has('dialogflow_flag')){
+            // Apply matching middleware per hears command
+            $dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
+            $tommy->middleware->received($dialogflow); 
+            $tommy->hears('smalltalk(.*)', function (BotMan $tom) {
+                // The incoming message matched the "my_api_action" on Dialogflow
+                // Retrieve Dialogflow information:
+                $extras = $tom->getMessage()->getExtras();
+                $apiReply = $extras['apiReply'];
+                $apiAction = $extras['apiAction'];
+                $apiIntent = $extras['apiIntent'];            
+                $tom->reply($apiReply);
+            })->middleware($dialogflow);
+        }
         
         // $tommy->hears('(^.*offers.*$)', function(Botman $tom){
         //     $tom->typesAndWaits(3);
