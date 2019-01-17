@@ -16,7 +16,7 @@
                     <table width="100%">
                       <tr>
                         <td rowspan="2" style="text-align:center;padding:10px;">
-                          <img style=""  src="http://via.placeholder.com/160x74?text=Logo" />
+                          <img style=""  src="https://www.234bet.com/content/daar-v22222/uploads/2018/12/its-my-game.jpg" />
                         </td>
                       </tr>
                     </table>
@@ -28,11 +28,11 @@
             <table style="padding: 10px;font-size:14px; width:100%;">
               <tr>
                 <td style="padding:10px;font-size:14px; width:100%;">
-                    <p>Hi User,</p>
+                    <p>Hi {{ $name }},</p>
 
-                    <p><br /> 234Bet</p>
-                    <br>
-                    
+                      {!! $msg !!}
+                      
+                    <br>                    
                     <p>Thanks for choosing 234Bet,</p>
                     <p><strong>234Bet Team.</strong></p>
                   <!-- /Callout Panel -->
@@ -42,7 +42,7 @@
 			  <tr>
 			  <td>
 				 <div align="center" style="font-size:12px; margin-top:20px; padding:5px; width:100%; background:#db0d19">
-                 © {{ date('Y') }} <a href="{{ url('/')}}" target="_blank" style="color:#FFF; text-decoration: none;">www.234bet.com</a>
+                 © {{ date('Y') }} <a href="https://www.234bet.com" target="_blank" style="color:#FFF; text-decoration: none;">www.234bet.com</a>
                   </div>
                 </td>
 			  </tr>
