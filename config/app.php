@@ -150,7 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
-        JD\Cloudder\CloudderServiceProvider::class,
+        // JD\Cloudder\CloudderServiceProvider::class,
         /*
          * Application Service Providers...
          */
