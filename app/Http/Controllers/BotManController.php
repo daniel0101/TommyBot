@@ -15,6 +15,7 @@ use App\Conversations\ExampleConversation;
 use App\Conversations\ComplaintConversation;
 use BotMan\BotMan\Cache\RedisCache;
 use BotMan\BotMan\Cache\LaravelCache;
+use Cache;
 
 class BotManController extends Controller
 {
