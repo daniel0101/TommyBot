@@ -82,21 +82,20 @@ class BotManController extends Controller
             $dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
 
             // Apply global "received" middleware
-            $tommy->middleware->received($dialogflow);
-
-            // Apply matching middleware per hears command
-            $tommy->hears('smalltalk(.*)', function (BotMan $tom) {
-                // The incoming message matched the "my_api_action" on Dialogflow
-                // Retrieve Dialogflow information:
-                $extras = $tom->getMessage()->getExtras();
-                $apiReply = $extras['apiReply'];
-                $apiAction = $extras['apiAction'];
-                $apiIntent = $extras['apiIntent'];
-                
-                $tom->reply($apiReply);
-            })->middleware($dialogflow);
-            $tom->reply("Correct! Let's go there");
+            $tommy->middleware->received($dialogflow);           
+            $tommy->reply("Correct! Let's go there");
         });
+
+         // Apply matching middleware per hears command
+         $tommy->hears('smalltalk(.*)', function (BotMan $tom) {
+            // The incoming message matched the "my_api_action" on Dialogflow
+            // Retrieve Dialogflow information:
+            $extras = $tom->getMessage()->getExtras();
+            $apiReply = $extras['apiReply'];
+            $apiAction = $extras['apiAction'];
+            $apiIntent = $extras['apiIntent'];            
+            $tom->reply($apiReply);
+        })->middleware($dialogflow);
         
         // $tommy->hears('(^.*offers.*$)', function(Botman $tom){
         //     $tom->typesAndWaits(3);
@@ -108,7 +107,7 @@ class BotManController extends Controller
         //     $tom->reply($message);
         // });
 
-        $tommy->hears('(^Complaint-)',function(Botman $bot){
+        $tommy->hears('(^Complaint-)',function(Botman $tom){
             $tom->reply('I just recorded your complaint, you would be contacted shortly');
         });
 
