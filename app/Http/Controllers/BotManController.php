@@ -76,8 +76,8 @@ class BotManController extends Controller
         $tommy->hears('(^1)','App\Messages\TelegramMessages@complaints');
         $tommy->hears('(^2)','App\Messages\TelegramMessages@offers');
 
-        $tommy->hears('(^3)',function(BotMan $tom){
-            $tom->typesAndWaits(3);
+        $tommy->hears('(^3)',function(BotMan $tommy){
+            $tommy->typesAndWaits(3);
             //make sure you move this to a class
             $dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
 
