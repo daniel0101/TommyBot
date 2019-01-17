@@ -48,15 +48,19 @@ class ComplaintConversation extends Conversation
      */
     public function askComplaint(){
         $this->ask("Please what's your complaint", function(Answer $answer) {
-            //persist complaint to DB
-            Complaint::create([
+            $data = [
                 'firstname'=>$this->firstname,
                 'email'=>$this->email,
                 'message'=>$answer->getText(),
-            ]);
-            //send email to queue  --add few seconds delay          
-            $emailJob = (new SendEmailJob($this->email))->delay(Carbon::now()->addSeconds(3));
-            dispatch($emailJob);
+            ];
+            //persist complaint to DB
+            Complaint::create($data);
+            //send email to queue  --add few seconds delay 
+            $data['subject'] = 'We Recieved your Complaint';
+            // $emailJob = (new SendEmailJob($data))->delay(Carbon::now()->addSeconds(3));
+            // dispatch($emailJob);
+            SendEmailJob::dispatch($data)
+                ->delay(now()->addSeconds(5));
             $this->say('Your Complaint has been recorded...we would respond to it shortly ✅');
             $this->concludeMessage();
         });
