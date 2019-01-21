@@ -89,7 +89,7 @@ class BotManController extends Controller
             Cache::put('dialogflow_flag', true, now()->addMinute(20));
             $tommy->reply("Correct! Let's go there");
         });
-
+        
         //check if chat cache is set
         if(Cache::has('dialogflow_flag')){
             // Apply matching middleware per hears command
@@ -138,23 +138,24 @@ class BotManController extends Controller
     public function facebook()
     {
         $tommy = resolve('botman');
-        $tommy->hears('Hi',function(Botman $tom){
+        $tommy->hears('(^Hi|Hello)','App\Messages\TelegramMessages@firstMessage');
+        $tommy->hears('Hi',function(BotMan $tom){
             $tom->reply("Hi my name is Tommy. What's yours");
         });
-        $tommy->hears('{name}',function($tom,$name){
+        $tommy->hears('{name}',function(BotMan $tom,$name){
             //save name in session Maybe?!
             $tom->reply("Hey "+$name+". Your wish is my command");
         });
 
-        $tommy->hears('Thank you tommy',function($tom){
-            $bot->reply(ButtonTemplate::create('Do you want to know more about 234BET?')               
+        $tommy->hears('Thank you tommy',function(BotMan $tom){
+            $tom->reply(ButtonTemplate::create('Do you want to know more about 234BET?')               
                 ->addButton(ElementButton::create('Show Me the Money!')
                     ->url('http://www.234bet.com/')
                 )
             );
         });
-        $tommy->hears('(Goodbye)',function($tom){
-            $bot->reply(ButtonTemplate::create('Rate our service')
+        $tommy->hears('(Goodbye)',function(BotMan $tom){
+            $tom->reply(ButtonTemplate::create('Rate our service')
                     ->addButton(ElementButton::create('Excellent')
                         ->type('postback')
                         ->payload('R-Excellent')
@@ -167,7 +168,7 @@ class BotManController extends Controller
                     )
                 );
         });
-        $tommy->hears('(^R-)',function($tom,$rate){
+        $tommy->hears('(^R-)',function(BotMan $tom,$rate){
             $rate = explode('-',$rate);
             $rate = $rate[1];
             //persist rating anywhere you want

@@ -60,9 +60,7 @@ class TelegramMessages
             });
         }else{
             $tommy->reply('Sorry, there are no juicy offers at this time');
-            $message = OutgoingMessage::create('You can also interact with us more')->addButtons([
-                Button::create('Lodge Complaint')->value(1)
-            ]);
+            $message = OutgoingMessage::create('You can also interact with us more');
         }
         // $attachment = new Image('https://botman.io/img/logo.png');
         // // Build message object
