@@ -129,6 +129,10 @@ class BotManController extends Controller
         $tommy = $this->loadConfig('facebook');
         $tommy->hears('(^Hi|Hello)','App\Messages\FacebookMessages@firstMessage');
 
+        $tommy->hears('test',function(BotMan $tom){
+            $tom->reply('test message recieved!');
+        });
+
         $tommy->hears('GET_STARTED','App\Messages\FacebookMessages@firstMessage');
         
         $tommy->hears('tellmemore','App\Messages\FacebookMessages@tellMeMore');
