@@ -60,7 +60,7 @@ return [
             ],
             [
                 'locale' => 'en_US',
-                'text' => 'Timeless apparel for the masses.',
+                'text' => '234BET offers the best services. How may i help you today',
             ],
         ],
     ],
