@@ -30,6 +30,7 @@ class TelegramMessages
             ]);
         $tommy->reply($question);
     }
+    
     public function nameMessage(Botman $tommy,$name){
         $tommy->typesAndWaits(3);
         $question = Question::create("Hey ".$name.". How can help you today? Please select an option")
@@ -102,7 +103,7 @@ class TelegramMessages
 
     public function getOffers(){
         //get latest offers saved on the DB --not older than today
-        $offers = Offer::where('offer_date','>',date('Y-m-d'))->get();        
+        $offers = Offer::where('offer_date','>',date('Y-m-d'))->get();
         return $offers;
     }
 
