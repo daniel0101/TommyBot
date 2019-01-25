@@ -1,8 +1,86 @@
 <?php
 
+namespace App\Messages;
+use BotMan\BotMan\BotMan;
+use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use App\Conversations\ComplaintConversation;
+use Log;
+use App\Offer;
+
 class FacebookMessages
 {
-    public function firstmessage(){
-        
+    public function firstmessage(BotMan $tommy){
+        $tommy->typesAndWaits(3);
+        $question = Question::create("Hey I'm Tommy. How can help you today? Please select an option")
+            ->fallback('Under Maintenace try again later')
+            ->callbackId('ask_reason')
+            ->addButtons([
+                Button::create('Our Latest Offers')->value('2'),
+                Button::create('Make we yarn wella')->value('3'),
+                Button::create('Lodge Complaint')->value('1'),
+            ]);
+        $tommy->reply($question);
+    }
+
+    public function nameMessage(Botman $tommy,$name){
+        $tommy->typesAndWaits(3);
+        $question = Question::create("Hey ".$name.". How can help you today? Please select an option")
+            ->fallback('Unable to ask question')
+            ->callbackId('ask_reason')
+            ->addButtons([
+                Button::create('Our Latest Offers')->value('2'),
+                Button::create('Make we yarn wella')->value('3'),
+                Button::create('Lodge Complaint')->value('1'),
+            ]);
+        $tommy->reply($question);
+    }
+
+    public function complaints(Botman $tommy){
+        $tommy->startConversation(new ComplaintConversation());
+    }
+
+    public function offers(BotMan $tommy){
+        $offers = $this->getOffers();
+        if($offers && $offers->count() > 0){
+            
+            $listTemplate = ListTemplate::create()
+                    ->useCompactView()
+                    ->addGlobalButton(ElementButton::create('view more')
+                    ->url('https://www.234bet.coms')
+                );
+                $offers->each(function($offer) use ($listTemplate){
+                    $listTemplate->addElement(Element::create($offer->name)
+                            ->subtitle($offer->description)
+                            ->image($offer->image)
+                            ->addButton(ElementButton::create('tell me more')
+                                ->url($offer->url)
+                            )
+                    );
+                });            
+            $tommy->reply($listTemplate);
+        }else{
+            $tommy->reply(ButtonTemplate::create("We don't have any Offers at this time- Want to know more about 234BET?")
+                ->addButton(ElementButton::create('Tell me more')
+                    ->type('postback')
+                    ->payload('tellmemore')
+                )
+                ->addButton(ElementButton::create('Vist our website')
+                    ->url('https://www.234bet.com/')
+                )
+            );
+        }
+    }
+
+    public function tellMeMore(BotMan $tommy){
+        $tommy->typesAndWaits(3);
+        $tommy->reply('234Bet is one of the most dynamic, innovative and trusted online betting companies in Nigeria. We offer a cross-platform, user-friendly service featuring thousands of sports from across the globe, political and novelty markets, all with great odds, unique and exciting markets and some of the best bonus offers available anywhere.');
+        $tommy->reply('vist our website on https://www.234bet.com/about-us/'.😆);
+    }
+
+    public function getOffers(){
+        //get latest offers saved on the DB --not older than today
+        $offers = Offer::where('offer_date','>',date('Y-m-d'))->get();
+        return $offers;
     }
 }
