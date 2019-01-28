@@ -300,7 +300,8 @@
   <script>
     $(document).ready(function() {
       $().ready(function() {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[rel="tooltip"]').tooltip();
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');
         $main_panel = $('.main-panel');
