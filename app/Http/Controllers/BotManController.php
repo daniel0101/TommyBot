@@ -228,7 +228,7 @@ class BotManController extends Controller
                         'token' => env('FACEBOOK_TOKEN'),
                     ]
                 ];
-                return BotManFactory::create($this->config,new laravelCache);
+                return BotManFactory::create($this->config,new LaravelCache);
             break;            
             default:
                 # code...
