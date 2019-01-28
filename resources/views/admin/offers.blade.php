@@ -25,7 +25,7 @@
                     <tr>
                         <td class="text-center">{{ $i+1 }}</td>
                         <td>{{ $offer->name }}</td>
-                        <td>{{ $offer->description }}}</td>
+                        <td>{{ $offer->description }}</td>
                         <td>{{ $offer->url }}</td>
                         <td>{{ $offer->offer_date }}</td>
                         <td><span class="badge badge-{{ $offer->offer_date > date('Y-m-d')?'info':'danger' }}">{{ $offer->offer_date > date('Y-m-d')?'Ongoing':'Expired' }}</span></td>

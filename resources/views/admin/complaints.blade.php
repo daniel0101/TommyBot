@@ -24,7 +24,7 @@
                     <tr>
                         <td class="text-center">{{ $i+1 }}</td>
                         <td>{{ $complaint->firstname }}</td>
-                        <td>{{ $complaint->email }}}</td>
+                        <td>{{ $complaint->email }}</td>
                         <td>{{ $complaint->message }}</td>
                         <td><span class="badge badge-{{ $complaint->reply_status?'success':'danger' }}">{{ $complaint->reply_status?'replied':'new' }}</span></td>
                         <td class="td-actions">
