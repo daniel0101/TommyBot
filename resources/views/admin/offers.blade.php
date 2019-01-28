@@ -33,7 +33,7 @@
                             <a href="{{ url('/admin/offer/'.$offer->id) }}" data-toggle="tooltip" title="Edit Offer" class="btn btn-info btn-sm btn-icon btn-round">
                                 <i class="tim-icons icon-pencil"></i>
                             </a>
-                            <a href="{{ url('/admin/delete/'.$offer->id) }}" data-toggle="tooltip" title="Delete Offer" class="btn btn-danger btn-sm btn-icon btn-round">
+                            <a href="{{ url('/admin/delete/'.$offer->id) }}" data-toggle="tooltip" title="Delete Offer" class="btn btn-danger btn-sm btn-icon btn-round" onclick="return confirm('Are you sure?');">
                                 <i class="tim-icons icon-simple-remove"></i>
                             </a>
                         </td>
