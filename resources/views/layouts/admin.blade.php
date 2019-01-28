@@ -68,12 +68,12 @@
           </a>
         </div>
         <ul class="nav">
-          <li class="{{ request()->is('admin/dashboard')?'active':'' }}">
+          {{-- <li class="{{ request()->is('admin/dashboard')?'active':'' }}">
             <a href="{{ url('/admin/dashboard')}}">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </a>
-          </li>
+          </li> --}}
           <li class="{{ request()->is('admin/offers')?'active':'' }}">
             <a href="{{ url('/admin/offers') }}">
               <i class="tim-icons icon-basket-simple"></i>
