@@ -4,6 +4,10 @@ namespace App\Messages;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
+use BotMan\Drivers\Facebook\Extensions\ListTemplate;
+use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
+use BotMan\Drivers\Facebook\Extensions\ElementButton;
 use App\Conversations\ComplaintConversation;
 use Log;
 use App\Offer;
@@ -50,6 +54,7 @@ class FacebookMessages
                     ->url('https://www.234bet.coms')
                 );
                 $offers->each(function($offer) use ($listTemplate){
+                    $i = 0;
                     $listTemplate->addElement(Element::create($offer->name)
                             ->subtitle($offer->description)
                             ->image($offer->image)
@@ -57,8 +62,18 @@ class FacebookMessages
                                 ->url($offer->url)
                             )
                     );
-                });            
-            $tommy->reply($listTemplate);
+                    $elements[$i] =  Element::create($offer->name)
+                            ->subtitle($offer->description)
+                            ->image($offer->image)
+                            ->addButton(ElementButton::create('Check Out Offer')
+                                    ->url($offer->url)
+                            );
+                    $i++;
+                }); 
+                $reply = GenericTemplate::create()
+                                    ->addElements($elements);
+                $tommy->reply($listTemplate);
+                $tommy->reply($reply);
         }else{
             $tommy->reply(ButtonTemplate::create("We don't have any Offers at this time- Want to know more about 234BET?")
                 ->addButton(ElementButton::create('Tell me more')

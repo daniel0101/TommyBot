@@ -148,6 +148,8 @@ class BotManController extends Controller
         $tommy->hears('(^Complaint)','App\Messages\FacebookMessages@complaints');
 
         $tommy->hears('(^Complaints)','App\Messages\FacebookMessages@complaints');
+        
+        $tommy->hears('(^complaint)','App\Messages\FacebookMessages@complaints');
 
         $tommy->hears('(^3)',function(BotMan $tommy){
             $tommy->typesAndWaits(3);
