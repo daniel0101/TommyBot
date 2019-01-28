@@ -223,7 +223,7 @@ class BotManController extends Controller
                     return BotManFactory::create($this->config,new LaravelCache);
                 break; 
             case 'facebook':
-                DriverManager::loadDriver(\BotMan\Drivers\Telegram\FacebookDriver::class);
+                DriverManager::loadDriver(\BotMan\Drivers\Facebook\FacebookDriver::class);
                 $this->config = ['facebook' => [
                         'token' => env('FACEBOOK_TOKEN'),
                     ]
