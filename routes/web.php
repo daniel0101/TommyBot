@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 });
 
 Route::match(['get', 'post'], '/botman', 'BotManController@handle');
