@@ -16,28 +16,34 @@ class FacebookMessages
 {
     public function firstmessage(BotMan $tommy){
         $tommy->typesAndWaits(3);
-        $question = Question::create("Hey I'm Tommy. How can help you today? Please select an option")
-            ->fallback('Under Maintenace try again later')
-            ->callbackId('ask_reason')
-            ->addButtons([
-                Button::create('Our Latest Offers')->value('2'),
-                Button::create('Make we yarn wella')->value('3'),
-                Button::create('Lodge Complaint')->value('1'),
-            ]);
-        $tommy->reply($question);
+        $reply = ButtonTemplate::create("Hi my name  is Tommy. How can help you today? Please select an option")
+            ->addButton(ElementButton::create('Our Latest Offers')
+                ->type('postback')
+                ->payload('tellmemore')
+            )->addButton(ElementButton::create('Make we yarn wella')
+                ->type('postback')
+                ->payload('3')
+            )->addButton(ElementButton::create('Lodge Complaint')
+                ->type('postback')
+                ->payload('1')
+            );
+        $tommy->reply($reply);
     }
 
     public function nameMessage(Botman $tommy,$name){
-        $tommy->typesAndWaits(3);
-        $question = Question::create("Hey ".$name.". How can help you today? Please select an option")
-            ->fallback('Unable to ask question')
-            ->callbackId('ask_reason')
-            ->addButtons([
-                Button::create('Our Latest Offers')->value('2'),
-                Button::create('Make we yarn wella')->value('3'),
-                Button::create('Lodge Complaint')->value('1'),
-            ]);
-        $tommy->reply($question);
+        $tommy->typesAndWaits(3);       
+        $reply = ButtonTemplate::create("Hey ".$name.". How can help you today? Please select an option")
+                ->addButton(ElementButton::create('Our Latest Offers')
+                    ->type('postback')
+                    ->payload('tellmemore')
+                )->addButton(ElementButton::create('Make we yarn wella')
+                    ->type('postback')
+                    ->payload('3')
+                )->addButton(ElementButton::create('Lodge Complaint')
+                    ->type('postback')
+                    ->payload('1')
+                );
+        $tommy->reply($reply);
     }
 
     public function complaints(Botman $tommy){
