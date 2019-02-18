@@ -103,7 +103,7 @@ class TelegramMessages
 
     public function getOffers(){
         //get latest offers saved on the DB --not older than today
-        $offers = Offer::where('offer_date','>',date('Y-m-d'))->get();
+        $offers = Offer::where('offer_date','>=',date('Y-m-d'))->get();
         return $offers;
     }
 
