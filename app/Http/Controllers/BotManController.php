@@ -136,6 +136,7 @@ class BotManController extends Controller
         $tommy->hears('GET_STARTED','App\Messages\FacebookMessages@firstMessage');
         
         $tommy->hears('tellmemore','App\Messages\FacebookMessages@tellMeMore');
+        $tommy->hears('Tell me more','App\Messages\FacebookMessages@tellMeMore');
 
         $tommy->hears('My name is {name}','App\Messages\TelegramMessages@nameMessage');
 

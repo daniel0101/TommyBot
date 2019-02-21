@@ -16,10 +16,10 @@ class FacebookMessages
 {
     public function firstmessage(BotMan $tommy){
         $tommy->typesAndWaits(3);
-        $reply = ButtonTemplate::create("Hi my name  is Tommy. How can help you today? Please select an option")
+        $reply = ButtonTemplate::create("Hi there, this is your interactive assistant for 234BET. my name  is Tommy. How can help you today? Please select an option")
             ->addButton(ElementButton::create('Our Latest Offers')
                 ->type('postback')
-                ->payload('tellmemore')
+                ->payload('2')
             )->addButton(ElementButton::create('Make we yarn wella')
                 ->type('postback')
                 ->payload('3')
@@ -35,7 +35,10 @@ class FacebookMessages
         $reply = ButtonTemplate::create("Hey ".$name.". How can help you today? Please select an option")
                 ->addButton(ElementButton::create('Our Latest Offers')
                     ->type('postback')
-                    ->payload('tellmemore')
+                    ->payload('2')
+                )->addButton(ElementButton::create('Tell me more about 234BET')
+                ->type('postback')
+                ->payload('tellmemore')
                 )->addButton(ElementButton::create('Make we yarn wella')
                     ->type('postback')
                     ->payload('3')
