@@ -29,7 +29,8 @@ class FacebookMessages
             );
        
         $tommy->reply($reply);
-        $tommy->reply('you can type "Offers" to get all the latest offers on 234Bet');
+        $tommy->reply('Type "Offers" to get all the latest offers on 234Bet');
+        $tommy->reply('Type "tell me more" to know more about 234Bet');
     }
 
     public function nameMessage(Botman $tommy,$name){

@@ -29,7 +29,8 @@ class TelegramMessages
                 Button::create('Lodge Complaint')->value('1'),
             ]);
         $tommy->reply($question);
-        $tommy->reply('Or type "Offers to get the latest offers on 234BET"');
+        $tommy->reply('Type "Offers to get the latest offers on 234BET"');
+        $tommy->reply('Type "tell me more" to know more about 234Bet');
     }
     
     public function nameMessage(Botman $tommy,$name){
