@@ -112,7 +112,8 @@ class TelegramMessages
      public function tellMeMore(BotMan $tommy){
         $tommy->typesAndWaits(3);
         $tommy->reply('234Bet is one of the most dynamic, innovative and trusted online betting companies in Nigeria. We offer a cross-platform, user-friendly service featuring thousands of sports from across the globe, political and novelty markets, all with great odds, unique and exciting markets and some of the best bonus offers available anywhere.');
-        $tommy->reply('vist our website on https://www.234bet.com/about-us/'.😆);
+        $tommy->reply('vist our website on https://www.234bet.com/about-us/');
+        $tommy->reply('😎😎😎');
     }
 
 }

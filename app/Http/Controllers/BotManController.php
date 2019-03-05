@@ -66,8 +66,7 @@ class BotManController extends Controller
         $tommy->hears('((?i)\\offer\\b)','App\Messages\TelegramMessages@Offers');
         $tommy->hears('(^.*offers.*$)','App\Messages\TelegramMessages@Offers');
 
-        $tommy->hears('tellmemore','App\Messages\FacebookMessages@tellMeMore');
-        $tommy->hears('Tell me more','App\Messages\FacebookMessages@tellMeMore');
+        $tommy->hears('(^tellmemore|Tell me more)','App\Messages\FacebookMessages@tellMeMore');
         
         // $tommy->hears('My name is {name}',function(Botman $tom, $name){
         //     $tom->typesAndWaits(3);
