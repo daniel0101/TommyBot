@@ -20,7 +20,7 @@ class TelegramMessages
 
     public function firstMessage(Botman $tommy){
         $tommy->typesAndWaits(3);
-        $question = Question::create("Hi there, this is your interactive assistant for 234BET. How can help you today? Please select an option")
+        $question = Question::create("Hi there, this is your interactive assistant for 234BET. How can help i you today? Please select an option")
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
             ->addButtons([

@@ -16,7 +16,7 @@ class FacebookMessages
 {
     public function firstmessage(BotMan $tommy){
         $tommy->typesAndWaits(3);
-        $reply = ButtonTemplate::create("Hi there, this is your interactive assistant for 234BET. my name  is Tommy. How can help you today? Please select an option")
+        $reply = ButtonTemplate::create("Hi there, this is your interactive assistant for 234BET. my name  is Tommy. How can i help you today? Please select an option")
             ->addButton(ElementButton::create('Our Latest Offers')
                 ->type('postback')
                 ->payload('2')
