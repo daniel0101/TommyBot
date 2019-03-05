@@ -18,7 +18,7 @@ class ComplaintConversation extends Conversation
 
     public function askFirstName()
     {
-        return $this->ask('For Record Purposes...What is your firstname?', function(Answer $answer) {
+        return $this->ask('Welcome to 234Bet Complaint BotBox. For Record Purposes...What is your firstname?', function(Answer $answer) {
             // Save result
             $this->firstname = $answer->getText();
             $this->say('Nice to meet you '.$this->firstname);
