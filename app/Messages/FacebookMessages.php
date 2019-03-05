@@ -27,7 +27,9 @@ class FacebookMessages
                 ->type('postback')
                 ->payload('1')
             );
+       
         $tommy->reply($reply);
+        $tommy->reply('you can type "Offers" to get all the latest offers on 234Bet');
     }
 
     public function nameMessage(Botman $tommy,$name){
