@@ -129,10 +129,10 @@ class AdminController extends Controller
     public function delete($id){
         $offer = Offer::findOrFail($id);
         if($offer->delete()){
-            return redirect()->with('status','success')
+            return redirect('/admin/offers')->with('status','success')
                             ->with('message','Offer was deleted successfully');
         }else{
-            return redirect()->with('status','danger')
+            return redirect('/admin/offers')->with('status','danger')
                             ->with('message','Offer could not be deleted at this time, Try again');
         }
     }
